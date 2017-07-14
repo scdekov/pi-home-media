@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>HOME MEDIA</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+
+        <section class="webdesigntuts-workshop">
+            <form action="" method="">
+                <input type="search" placeholder="Enter url of youtube video." id="search">
+                <button id="btn-play">PLAY</button>
+            </form>
+            <ul id="results">
+            </ul>
+        </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $results = $('#results');
+
+            function addResult(result) {
+                var $result = $(`<li><a class="item" href="">${result.snippet.title}</a></li>`);
+                var ytId = result.id.videoId;
+                if (!ytId) {
+                    return;
+                }
+                $result.click(function (e) {
+                    e.preventDefault();
+                    $.get(`/yt-stream/${ytId}`);
+                });
+                $results.append($result);
+            }
+
+            $('#btn-play').click(function (e) {
+                e.preventDefault();
+                var searchQ = $('#search').val();
+                if (!searchQ) {
+                    return;
+                }
+
+                $results.empty();
+                $.get(`/search/?q=${searchQ}`)
+                .done(function (data) {
+                    JSON.parse(data).items.forEach(addResult);
+                });
+            });
+        });
+    </script>
+    </body>
+</html>
