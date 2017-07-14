@@ -1,0 +1,24 @@
+{
+  "name": "pi-home-media",
+  "version": "1.0.0",
+  "description": "Simple nodejs server used for streaming to my rasPI.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scdekov/pi-home-media.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scdekov/pi-home-media/issues"
+  },
+  "homepage": "https://github.com/scdekov/pi-home-media#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "robotjs": "^0.4.7"
+  }
+}
