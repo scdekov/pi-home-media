@@ -4,11 +4,14 @@ var express = require('express');
 var app = express();
 var robot = require('robotjs');
 
-app.get('/', function (req, res) {
-        res.send('Welcome to PiCAST 3! In the URL, type what you want to do...');
-});
-
 var currentBrowserProc = null;
+
+app.use(express.static(__dirname));
+
+
+app.get('/', function (req, res) {
+    res.render('index.html');
+});
 
 app.get('/yt-stream/:url', function (req, res) {
     if (currentBrowserProc) {

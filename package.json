@@ -19,6 +19,7 @@
   "homepage": "https://github.com/scdekov/pi-home-media#readme",
   "dependencies": {
     "express": "^4.15.3",
+    "http": "0.0.0",
     "robotjs": "^0.4.7"
   }
 }
