@@ -9,7 +9,7 @@
 
         <section class="webdesigntuts-workshop">
             <form action="" method="">
-                <input type="search" placeholder="Enter url of youtube video." id="search">
+                <input type="search" placeholder="Search" id="search">
                 <button id="btn-search">SEARCH</button>
             </form>
             <ul id="results">
@@ -46,9 +46,7 @@
 
                 $results.empty();
                 $.get(`/search/?q=${searchQ}`)
-                .done((data) => {
-                    JSON.parse(data).items.forEach(addResult);
-                });
+                .done((data) => JSON.parse(data).items.forEach(addResult));
             });
         });
     </script>

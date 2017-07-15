@@ -7,7 +7,7 @@ const request = require('request');
 
 
 let currentBrowserProc = null;
-let youtubeKey = 'AIzaSyAph2AtB2-kc2-bftUJkjG8ZHwkuiirZC8';
+const YOUTUEBE_KEY = 'AIzaSyAph2AtB2-kc2-bftUJkjG8ZHwkuiirZC8';
 
 
 app.use(express.static(__dirname));
@@ -20,10 +20,8 @@ app.get('/', (req, res) => {
 
 
 app.get('/search/', (req, res) => {
-    let url = `https://www.googleapis.com/youtube/v3/search?key=${youtubeKey}&part=snippet&q=${req.query.q}`;
-    request(url, (e, r, body) => {
-        res.send(body);
-    });
+    let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUEBE_KEY}&part=snippet&q=${req.query.q}`;
+    request(url, (e, r, body) => res.send(body));
 });
 
 
@@ -33,9 +31,7 @@ app.get('/yt-stream/:url', (req, res) => {
     }
 
     currentBrowserProc = spawn('chromium-browser', [`https://www.youtube.com/watch?v=${req.params.url}`]);
-    setTimeout(() => {
-        robot.keyTap('f');
-    }, 15000);
+    setTimeout(() => robot.keyTap('f'), 15000);
 });
 
 
@@ -47,9 +43,9 @@ app.get('/kill/', (req, res) => {
 
 
 // Setup PiCAST Server
-let srv = app.listen(3000, () => {
-        let host = srv.address().address;
-        let port = srv.address().port;
+const srv = app.listen(3000, () => {
+        const host = srv.address().address;
+        const port = srv.address().port;
 
         console.log('Access at http://%s:%s', host, port);
 });
