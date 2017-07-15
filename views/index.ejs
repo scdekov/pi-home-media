@@ -22,12 +22,12 @@
             let $results = $('#results');
 
             function addResult(result) {
-                let ytId = result.id.videoId;
+                const ytId = result.id.videoId;
                 if (!ytId) {
                     return;
                 }
 
-                let $result = $(`<li><a class="item" href="">${result.snippet.title}</a></li>`);
+                const $result = $(`<li><a class="item" href="">${result.snippet.title}</a></li>`);
 
                 $result.click(function (e) {
                     e.preventDefault();
@@ -39,7 +39,7 @@
 
             $('#btn-search').click((e) => {
                 e.preventDefault();
-                let searchQ = $('#search').val();
+                const searchQ = $('#search').val();
                 if (!searchQ) {
                     return;
                 }
