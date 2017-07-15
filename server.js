@@ -3,10 +3,11 @@ const express = require('express');
 const app = express();
 const robot = require('robotjs');
 const request = require('request');
+const creds = require('../credentials.js');
 
 
 let currentBrowserProc = null;
-const YOUTUEBE_KEY = 'AIzaSyAph2AtB2-kc2-bftUJkjG8ZHwkuiirZC8';
+const YOUTUBE_KEY = creds.YOUTUBE_KEY;
 
 
 app.use(express.static(__dirname));
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/search/', (req, res) => {
-    let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUEBE_KEY}&part=snippet&q=${req.query.q}`;
+    let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_KEY}&part=snippet&q=${req.query.q}`;
     request(url, (e, r, body) => res.send(body));
 });
 
