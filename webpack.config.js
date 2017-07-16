@@ -1,23 +1,21 @@
-const path = require('path');
+const {resolve} = require('path');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './client/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})
+module.exports = env => {
+  env = env || { dev: true };
 
-module.exports = {
-  entry: './client/index.js',
-  output: {
-    path: path.resolve('dist'),
-    filename: 'index_bundle.js'
-  },
-  module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
-    ]
-  },
-  plugins: [HtmlWebpackPluginConfig]
+  return {
+    context: resolve('client'),
+    entry: './index.js',
+    output: {
+      path: resolve('dist'),
+      filename: 'bundle.js',
+      pathinfo: !env.prod
+    },
+    module: {
+      rules: [
+        { test: /\.(js|jsx)$/, loader: 'babel-loader' },
+        { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] }
+      ]
+    }
+  }
 }

@@ -9,6 +9,8 @@ const creds = require('../credentials.js');
 let currentBrowserProc = null;
 const YOUTUBE_KEY = creds.YOUTUBE_KEY;
 
+app.use(express.static('dist'));
+app.use(express.static('client'));
 
 app.get('/api/search/', (req, res) => {
     let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_KEY}&part=snippet&q=${req.query.q}`;
@@ -34,7 +36,7 @@ app.get('/api/kill/', (req, res) => {
 
 
 // Setup PiCAST Server
-const srv = app.listen(3001, () => {
+const srv = app.listen(3000, () => {
         const host = srv.address().address;
         const port = srv.address().port;
 
