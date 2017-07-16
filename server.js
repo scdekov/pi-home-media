@@ -9,23 +9,16 @@ const creds = require('../credentials.js');
 let currentBrowserProc = null;
 const YOUTUBE_KEY = creds.YOUTUBE_KEY;
 
+app.use(express.static('dist'));
+app.use(express.static('client'));
 
-app.use(express.static(__dirname));
-app.set('view engine', 'ejs');
-
-
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-
-app.get('/search/', (req, res) => {
+app.get('/api/search/', (req, res) => {
     let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_KEY}&part=snippet&q=${req.query.q}`;
     request(url, (e, r, body) => res.send(body));
 });
 
 
-app.get('/yt-stream/:url', (req, res) => {
+app.get('/api/yt-stream/:url', (req, res) => {
     if (currentBrowserProc) {
         currentBrowserProc.kill();
     }
@@ -35,7 +28,7 @@ app.get('/yt-stream/:url', (req, res) => {
 });
 
 
-app.get('/kill/', (req, res) => {
+app.get('/api/kill/', (req, res) => {
     if (currentBrowserProc) {
         currentBrowserProc.kill();
     }
