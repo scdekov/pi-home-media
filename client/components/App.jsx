@@ -1,11 +1,16 @@
 import React from 'react';
 import SearchForm from './SearchForm.jsx';
 import Results from './Results.jsx';
+import io from 'socket.io-client';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {items: []}
+    this.state = {items: [], currentItem: {}};
+
+    io().on('currently-playing', data => {
+      this.setState({currentItem: data});
+    });
   }
 
   search(query) {
@@ -13,26 +18,28 @@ export default class App extends React.Component {
       this.setState({items: []});
     }
 
-    $.get(`api/search/?q=${query}`).done((data) => {
-      // TODO: move this logic into the API endpoint
-      const items = JSON.parse(data)
-                        .items
-                        .filter((item) => item.id.videoId)
-                        .map((item) => ({ytId: item.id.videoId, title: item.snippet.title}));
-
-      this.setState({items: items});
-    });
+    $.get(`api/search/?q=${query}`).done(data => this.setState({items: data}));
   }
 
-  playVideo(ytId) {
-    $.get(`api/yt-stream/${ytId}`);
+  playVideo(item) {
+    $.post({
+      url: `api/play/`,
+      data: JSON.stringify({'ytId': item.ytId}),
+      'contentType': 'application/json'
+    })
   }
 
   render() {
+    let currentlyPlaying = '';
+    if (Object.keys(this.state.currentItem) !== 0) {
+      currentlyPlaying = <p className="currently-playing">Currenly playing: {this.state.currentItem.title}</p> 
+    }
+
     return (
       <section className="webdesigntuts-workshop">
-        <SearchForm search={this.search.bind(this)}/>
-        <Results items={this.state.items} playVideo={this.playVideo.bind(this)}/>
+        {currentlyPlaying}
+      <SearchForm search={this.search.bind(this)}/>
+      <Results items={this.state.items} playVideo={this.playVideo.bind(this)}/>
       </section>
     )
   }

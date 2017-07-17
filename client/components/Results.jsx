@@ -8,7 +8,7 @@ export default class Results extends React.Component {
       <li key={index}>
         <a className="item"
            href=""
-           onClick={(e) => { e.preventDefault(); playVideo(item.ytId) }}>
+           onClick={(e) => { e.preventDefault(); playVideo(item) }}>
 
           {item.title}
         </a>
