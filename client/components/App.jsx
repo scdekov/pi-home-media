@@ -32,14 +32,13 @@ export default class App extends React.Component {
   render() {
     let currentlyPlaying = '';
     if (Object.keys(this.state.currentItem) !== 0) {
-      currentlyPlaying = <p className="currently-playing">Currenly playing: {this.state.currentItem.title}</p> 
+      currentlyPlaying = <p className="currently-playing">Currenly playing: {this.state.currentItem.title}</p>
     }
 
     return (
       <section className="webdesigntuts-workshop">
-        {currentlyPlaying}
-      <SearchForm search={this.search.bind(this)}/>
-      <Results items={this.state.items} playVideo={this.playVideo.bind(this)}/>
+        <SearchForm search={this.search.bind(this)}/>
+        <Results items={this.state.items} playVideo={this.playVideo.bind(this)}/>
       </section>
     )
   }
