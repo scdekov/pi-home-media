@@ -16,12 +16,25 @@ export default class Results extends React.Component {
     )
   }
 
-  render() {
-    const { items } = this.props;
+  renderCurrentItem() {
+    const { currentItem } = this.props;
+
+    if(!currentItem.title) { return null }
 
     return (
+      <div>
+        <p className="item current">
+          Playing: {currentItem.title}
+        </p>
+      </div>
+    )
+  }
+
+  render() {
+    return (
       <ul id="results">
-        {items.map((item, index) => this.renderItem(item, index))}
+        {this.renderCurrentItem()}
+        {this.props.items.map((item, index) => this.renderItem(item, index))}
       </ul>
     )
   }

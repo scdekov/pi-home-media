@@ -20,7 +20,8 @@ app.use(bodyParser.json());
 
 app.get('/api/search/', (req, res) => {
     youtubeAPI.search(req.query.q, 5, (e, result) => {
-        res.send(result.items.map(normalizeResult));
+        const normalizedResults = result.items.map((item) => normalizeResult(item))
+        res.send(normalizedResults);
     });
 });
 
@@ -33,7 +34,7 @@ app.post('/api/play/', (req, res) => {
     setTimeout(() => robot.keyTap('f'), 15000);
 
     youtubeAPI.getById(req.body.ytId, (e, result) => {
-        app.locals.currentItem = normalizeResult(result.items[0]);
+        app.locals.currentItem = normalizeResult(result.items[0], req.body.ytId);
         io.emit('currently-playing', app.locals.currentItem);
     });
 });
@@ -55,9 +56,9 @@ server.listen(3000, () => {
 });
 
 
-function normalizeResult(item) {
+function normalizeResult(item, id = null) {
     return {
-        ytId: item.id.videoId,
+        ytId: id || item.id.videoId,
         title: item.snippet.title
     };
 }

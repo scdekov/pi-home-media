@@ -168,3 +168,8 @@ body {
 .currently-playing {
     color: white;
 }
+
+.item.current {
+  box-shadow: 0px 2px 10px 5px #a92121;
+  cursor: default;
+}
