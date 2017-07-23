@@ -30,10 +30,10 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <section className="webdesigntuts-workshop">
+      <div className="main">
         <SearchForm search={this.search.bind(this)}/>
         <Results items={this.state.items} playVideo={this.playVideo.bind(this)}/>
-      </section>
+      </div>
     )
   }
 }

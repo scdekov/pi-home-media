@@ -12,11 +12,13 @@ export default class SearchForm extends React.Component {
 
     return (
       <form action="" method="" onSubmit={(e) => e.preventDefault()}>
-        <input type="search"
-               placeholder="Search"
-               id="search"
-               onChange={onQueryChange}
-               ref={(input) => { this.input = input; }} />
+        <div className="input-wrapper">
+          <input type="search"
+                 placeholder="Search"
+                 id="search"
+                 onChange={onQueryChange}
+                 ref={(input) => { this.input = input; }} />
+        </div>
       </form>
     )
   }
