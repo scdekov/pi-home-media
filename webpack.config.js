@@ -5,17 +5,23 @@ module.exports = env => {
 
   return {
     context: resolve('client'),
-    entry: './index.js',
+
+    entry: {
+      index: './index.js',
+      stream: './stream-page.js'
+    },
+
     output: {
       path: resolve('dist'),
-      filename: 'bundle.js',
+      filename: '[name]-bundle.js',
       pathinfo: !env.prod
     },
+
     module: {
       rules: [
         { test: /\.(js|jsx)$/, loader: 'babel-loader' },
         { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] }
       ]
-    }
+    },
   }
 }
