@@ -39,6 +39,10 @@ jspm_packages/
 # Credentials file
 credentials.js
 
+
+# Vagrant files
+.vagrant/
+
 # Typescript v1 declaration files
 typings/
 

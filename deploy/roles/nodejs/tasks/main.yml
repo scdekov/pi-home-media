@@ -1,0 +1,10 @@
+---
+
+- name: get nodejs
+  shell: "curl -sL https://deb.nodesource.com/setup_7.x | bash -"
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: install nodejs
+  apt: name=nodejs state=present

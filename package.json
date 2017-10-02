@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "webpack --watch",
-    "build": "NODE_ENV=production webpack -p"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,6 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "request": "^2.81.0",
-    "robotjs": "^0.4.7",
     "socketio": "^1.0.0",
     "webpack": "^3.3.0",
     "youtube-node": "^1.3.2"

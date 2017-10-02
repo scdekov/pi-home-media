@@ -1,0 +1,13 @@
+--- 
+
+- hosts: all
+  remote_user: vagrant
+  roles:
+    - nodejs
+
+- hosts: all
+  roles:
+    - run-app
+  vars_files:
+    - group_vars/all
+    - group_vars/vault

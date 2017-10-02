@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const robot = require('robotjs');
 const request = require('request');
 const creds = require('./credentials.js');
 const bodyParser = require('body-parser')

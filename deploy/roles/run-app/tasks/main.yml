@@ -1,0 +1,39 @@
+---
+
+- name: Clean work dir
+  file:
+      path: "{{work_dir}}"
+      state: absent
+
+- name: Clone repo
+  git:
+      repo: "{{git_repo}}"
+      dest: "{{work_dir}}"
+      version: "ansible-deploy"
+
+- name: Install npm dependencies
+  npm:
+      path: "{{work_dir}}"
+
+- name: Build static files
+  command: chdir={{work_dir}} npm run build
+
+- name: Install forever to run node app
+  npm: name=forever global=yes state=present
+  become: yes
+  become_user: root
+
+- name: Get app process id
+  shell: "ps aux | grep app.js | grep -v grep | awk '{print $2}'"
+  register: process_id
+
+- name: Stop app process
+  shell: kill -9 {{ item }}
+  with_items: process_id.stdout_lines
+  ignore_errors: True
+
+- name: Write credentials file
+  template: src=credentials.js.j2 dest={{work_dir}}/credentials.js
+
+- name: Run application
+  command: chdir={{work_dir}} forever start server.js

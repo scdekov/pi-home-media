@@ -1,0 +1,4 @@
+
+work_dir: /home/vagrant/pi-home-media
+git_repo: "https://github.com/scdekov/pi-home-media"
+youtube_key: "{{ vault_youtube_key }}"
